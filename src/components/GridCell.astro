@@ -1,0 +1,15 @@
+---
+const colors: string[] = ["sky", "pink", "purple", "emerald"]
+
+const randomizeColor = () => colors[Math.floor(Math.random() * (colors.length))]
+const randomizeHue = () => Math.floor((Math.random() * (2) + 5) + 1) * 100
+
+const getColorClass = () => `bg-${randomizeColor()}-${randomizeHue()}`
+
+const { rows, cols, colorClass} = Astro.props
+---
+<section class={`h-full grid grid-rows-${rows} grid-cols-${cols} text-black`}>
+    {Array.from({ length: rows * cols }).map(() => (
+        <div class={`border-black border-2 ${getColorClass()} flex-1`}></div>
+    ))}
+</section>

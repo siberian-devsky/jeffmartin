@@ -7,7 +7,10 @@ export default {
 	plugins: [],
 	safelist: [
 		{
-			pattern: /bg-blue-[4-9]00/,
+			pattern: /bg-(red|green|blue|sky|pink|purple|emerald)-(100|200|300|400|500|600|700|800|900)/,
+		},
+		{
+			pattern: /grid-(rows|cols)-[0-8]/
 		}
 	]
 }
