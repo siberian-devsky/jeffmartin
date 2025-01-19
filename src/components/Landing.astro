@@ -1,0 +1,12 @@
+---
+const randomizeColor = () => Math.floor(Math.random() * (4) + 5) * 100
+const gridSize = 8
+
+---
+<main class="h-full">
+	<section class={`h-full grid grid-rows-${gridSize} grid-cols-${gridSize} text-black bg-bl`}>
+		{Array.from({ length: gridSize * gridSize }).map(() => (
+			<div class={`border-black border-4 bg-blue-${randomizeColor()} flex-1`}></div>
+		))}
+	</section>
+</main>
