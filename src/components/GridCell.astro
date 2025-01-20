@@ -9,13 +9,12 @@ const { rows, cols } = Astro.props;
     </section>
 </div>
 
-<script type="module">
-    import { getColorClass } from '/src/cellColorRandomizer.js';
+<script type="module" is:inline>
     // Randomization logic directly in the script
-    // const colors = ["sky", "pink", "purple", "emerald"];
-    // const randomizeColor = () => colors[Math.floor(Math.random() * colors.length)];
-    // const randomizeHue = () => Math.floor((Math.random() * 2 + 5) + 1) * 100;
-    // const getColorClass = () => `bg-${randomizeColor()}-${randomizeHue()}`;
+    const colors = ["sky", "pink", "purple", "emerald"];
+    const randomizeColor = () => colors[Math.floor(Math.random() * colors.length)];
+    const randomizeHue = () => Math.floor((Math.random() * 2 + 5) + 1) * 100;
+    const getColorClass = () => `bg-${randomizeColor()}-${randomizeHue()}`;
 
     document.addEventListener("DOMContentLoaded", () => {
         const updateColors = () => {
