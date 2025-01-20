@@ -1,15 +1,31 @@
 ---
-const colors: string[] = ["sky", "pink", "purple", "emerald"]
-
-const randomizeColor = () => colors[Math.floor(Math.random() * (colors.length))]
-const randomizeHue = () => Math.floor((Math.random() * (2) + 5) + 1) * 100
-
-const getColorClass = () => `bg-${randomizeColor()}-${randomizeHue()}`
-
-const { rows, cols, colorClass} = Astro.props
+const { rows, cols } = Astro.props;
 ---
-<section class={`h-full grid grid-rows-${rows} grid-cols-${cols} text-black`}>
-    {Array.from({ length: rows * cols }).map(() => (
-        <div class={`border-black border-2 ${getColorClass()} flex-1`}></div>
-    ))}
-</section>
+<div class="h-screen w-screen flex items-center justify-center bg-slate-800">
+    <section id="grid" class={`h-full w-11/12 grid grid-rows-${rows} grid-cols-${cols} gap-2`}>
+        {Array.from({ length: rows * cols }).map(() => (
+            <div class="border-black border-2 rounded-lg flex-1"></div>
+        ))}
+    </section>
+</div>
+
+<script type="module">
+    import { getColorClass } from '/src/scripts/cellColorRandomizer.js';
+    // Randomization logic directly in the script
+    // const colors = ["sky", "pink", "purple", "emerald"];
+    // const randomizeColor = () => colors[Math.floor(Math.random() * colors.length)];
+    // const randomizeHue = () => Math.floor((Math.random() * 2 + 5) + 1) * 100;
+    // const getColorClass = () => `bg-${randomizeColor()}-${randomizeHue()}`;
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const updateColors = () => {
+            const gridItems = document.querySelectorAll("#grid > div");
+            gridItems.forEach(item => {
+                item.className = `border-black border-2 rounded-lg flex-1 ${getColorClass()}`;
+            });
+        };
+
+        // Update colors every second
+        setInterval(updateColors, 1000);
+    });
+</script>
