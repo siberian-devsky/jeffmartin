@@ -1,38 +1,56 @@
 ---
-import '../styles/global.css'
+import "../styles/global.css"
 const { rows, cols } = Astro.props;
 ---
-<div class="h-screen w-screen p-5 flex-col items-center justify-center bg-slate-600">
+<div class="h-screen w-screen p-5 flex-col items-center justify-center">
     <section id="hero" class="h-1/3 w-full">
-        <div id="intro">
-            <p id="title" class="opacity-0 font-semibold text-4xl lg:text-6xl">Hi There</p>
-            <p id="subtitle" class="opacity-0 font-bold text-6xl lg:text-8xl">I'm Jeff and I Fix Things</p>
+        <div id="intro" class="flex flex-col gap-4">
+            <p id="title" class="opacity-0 font-semibold text-4xl">Hi There.</p>
+            <p id="subtitle" class="uppercase opacity-0 font-bold text-6xl">
+                I'm Jeff And Here's<br>What I Know</p>
         </div>
     </section>
-    <section id="content" 
-             class="h-2/3 text-xl lg:text-8xl border-orange-600 border-4 rounded-xl flex flex-col items-center justify-center"
-        >
-        <p class="uppercase">coming soonish</p><br>
-        <p>🚧 🔧 ⚒️ 👨🏼‍💻 ⚙️ 🪓 🏗️</p>
-    </section>
+    <section id="techstack"  
+        class="h-2/3 w-full text-2xl lg:text-4xl opacity-0 translate-y-full">
+        <div>GitHub Contributions</div>
+        <div>Python</div>
+        <div>Web</div>
+        <div>Automation</div>
+    </section>  
 </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const title: HTMLElement|null = document.getElementById('title')
         const subtitle: HTMLElement|null = document.getElementById('subtitle')
+        const techStack: HTMLElement|null = document.getElementById('techstack')
         if (title) {
             setTimeout(() => {
-                title.className = "transform font-semibold text-3xl opacity-100 transition-all duration-1200 linear"
+                title.className = "transform font-semibold text-4xl opacity-100 transition-all duration-1500 linear"
             }, 500)
         } else {
-            console.error(`Intro not found. Got ${title} instead`)
+            console.error(`Title not found. Got ${title} instead`)
         }
 
         if (subtitle) {
             setTimeout(() => {
-                subtitle.className = "transform font-bold text-5xl opacity-100 transition-all duration-1200 linear"
+                subtitle.className = "transform font-bold text-6xl opacity-100 transition-all duration-1500 linear"
             }, 1000);
+        } else {
+            console.error(`Subtitle not found. Got ${subtitle} instead`)
+        }
+
+        if (techStack) {
+            setTimeout(() => {
+                techStack.className = "h-2/3 text-xl lg:text-4xl \
+                                       grid grid-rows-4 grid-cols-1 gap-4 \
+                                       md:grid-rows-2 md:grid-cols-2 \
+                                       items-center justify-center \
+                                       transform translate-y-5 opacity-100 transition-all \
+                                       duration-1500 linear"
+            }, 1000)
+        } else {
+            console.error(`Tech Stack not found. Got ${techStack} instead`)
         }
     })
 </script>
