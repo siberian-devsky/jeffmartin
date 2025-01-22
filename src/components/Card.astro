@@ -27,3 +27,21 @@ const { name, svg } = Astro.props
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const techStack: HTMLElement|null = document.getElementById('techstack')
+        if (techStack) {
+            setTimeout(() => {
+                techStack.className = "h-2/3 text-xl lg:text-4xl \
+                grid grid-cols-1 gap-4 \
+                md:grid-rows-2 md:grid-cols-2 \
+                items-center justify-center \
+                transform translate-y-0 opacity-100 transition-all \
+                duration-1500 linear"
+            }, 1000)
+        } else {
+            console.error(`Tech Stack not found. Got ${techStack} instead`)
+        }
+    })
+</script>

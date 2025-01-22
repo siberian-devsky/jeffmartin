@@ -12,7 +12,7 @@ import "../styles/global.css"
     document.addEventListener('DOMContentLoaded', () => {
         const title: HTMLElement|null = document.getElementById('title')
         const subtitle: HTMLElement|null = document.getElementById('subtitle')
-        const techStack: HTMLElement|null = document.getElementById('techstack')
+        
         if (title) {
             setTimeout(() => {
                 title.className = "transform font-semibold text-4xl opacity-100 transition-all duration-1500 linear"
@@ -27,19 +27,6 @@ import "../styles/global.css"
             }, 1000);
         } else {
             console.error(`Subtitle not found. Got ${subtitle} instead`)
-        }
-
-        if (techStack) {
-            setTimeout(() => {
-                techStack.className = "h-2/3 text-xl lg:text-4xl \
-                                       grid grid-rows- grid-cols-1 gap-4 \
-                                       md:grid-rows-2 md:grid-cols-2 \
-                                       items-center justify-center \
-                                       transform translate-y-0 opacity-100 transition-all \
-                                       duration-1500 linear"
-            }, 1000)
-        } else {
-            console.error(`Tech Stack not found. Got ${techStack} instead`)
         }
     })
 </script>
