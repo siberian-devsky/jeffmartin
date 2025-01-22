@@ -23,7 +23,7 @@ const { name, svg } = Astro.props
         
         {/* Back side */}
         <div class="absolute flex items-center justify-center w-full h-full inset-0 p-4 backface-hidden [transform:rotateX(180deg)]">
-            {name}
+            <slot />
         </div>
     </div>
 </div>
