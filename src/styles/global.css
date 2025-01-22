@@ -1,7 +1,13 @@
-#techstack > div {
+/* #techstack > div {
     padding-left: 10px;
+    place-content: center;
     border: 1px solid rgba(234, 90, 12, 0.651);
     border-left: 10px solid rgb(234 88 12);
     border-radius: 8px;
     height: 85%;
-}
+} */
+
+/* #techstack > div:hover,
+#techstack > div:focus {
+    box-shadow: 0px 0px 15px 3px rgba(255, 255, 255, 0.399);
+} */

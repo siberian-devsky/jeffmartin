@@ -10,6 +10,17 @@ export default {
 			}
 		},
 	},
-	plugins: [],
+	plugins: [
+		function({ addUtilities }) {
+		  addUtilities({
+			'.preserve-3d': {
+			  'transform-style': 'preserve-3d',
+			},
+			'.backface-hidden': {
+			  'backface-visibility': 'hidden',
+			},
+		  })
+		},
+	  ],
 	safelist: []
 }

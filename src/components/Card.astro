@@ -1,0 +1,29 @@
+---
+const { name, svg } = Astro.props
+---
+
+<div class="group [perspective:1000px] h-[85%]">
+    <div 
+        class="h-full w-full transition-all duration-700 
+               relative preserve-3d
+               group-hover:[transform:rotateX(180deg)]
+               pl-[10px] place-content-center
+               border border-[rgba(234,90,12,0.651)]
+               border-l-[10px] border-l-[rgb(234,88,12)]
+               rounded-lg"
+    >
+        {/* Front side */}
+        <div class="absolute flex items-center justify-center w-full h-full inset-0 p-4 backface-hidden">
+            {svg ? (
+                <img src={svg.src || svg} alt={`Icon for ${name}`} />
+            ) : (
+                <p class="text-red-500">Image not found</p>
+            )}
+        </div>
+        
+        {/* Back side */}
+        <div class="absolute flex items-center justify-center w-full h-full inset-0 p-4 backface-hidden [transform:rotateX(180deg)]">
+            {name}
+        </div>
+    </div>
+</div>
