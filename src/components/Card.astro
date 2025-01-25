@@ -8,7 +8,7 @@ const { name, svg } = Astro.props
                relative preserve-3d
                group-hover:[transform:rotateX(180deg)]
                pl-[10px] place-content-center
-               bg-[rgba(234,90,12,0.11)]
+               bg-[rgba(223,135,88,0.11)]
                hover:border-l-slate-400
                border border-[rgba(234,90,12,0.651)]
                border-l-[10px] border-l-[rgb(234,88,12)]
@@ -32,6 +32,7 @@ const { name, svg } = Astro.props
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // defined in MainPage.astro
         const techStack: HTMLElement|null = document.getElementById('techstack')
         if (techStack) {
             setTimeout(() => {
