@@ -4,7 +4,11 @@
 <button id="menu-button" class="opacity-0 z-50 border
                                 border-orange-600 rounded-md fixed w-20 h-10
                                 text-lg right-11 top-5"
-    >MENU
+    ><div class="flex flex-col justify-center items-center gap-1">
+        <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
+        <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
+        <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
+    </div>
 </button>
 <div id="menu-container" class="opacity-0 invisible z-50 h-auto fixed
                                 w-20 rounded-md right-11 top-16">
@@ -47,11 +51,17 @@
         const menuIsDisplayed = window.sessionStorage.getItem("menuIsDisplayed") === "true";
         if (menuContainer) {
             if (menuIsDisplayed) {
-                console.log("hiding menu");
+                menuButton.innerHTML = `
+                <div class="flex flex-col justify-center items-center gap-1">
+                    <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
+                    <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
+                    <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
+                </div>
+                `
                 menuContainer.classList.add("invisible");
                 window.sessionStorage.setItem("menuIsDisplayed", "false");
             } else {
-                console.log("showing menu");
+                menuButton.textContent = "X"
                 menuContainer.classList.remove("invisible");
                 window.sessionStorage.setItem("menuIsDisplayed", "true");
             }
@@ -68,7 +78,7 @@
                 menuButton.classList.add(...transitionClasses)
             }, 500)
         } else {
-            console.error(`Title not found. Got ${menuButton} instead`)
+            console.error(`Menu button not found. Got ${menuButton} instead`)
         }
 
         if (menuContainer) {
@@ -76,7 +86,7 @@
                 menuContainer.classList.add(...transitionClasses)
             }, 500);
         } else {
-            console.error(`Subtitle not found. Got ${menuContainer} instead`)
+            console.error(`Menu container not found. Got ${menuContainer} instead`)
         }
     })
 </script>
