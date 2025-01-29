@@ -17,7 +17,7 @@ const { name, svg } = Astro.props
         {/* Front side */}
         <div class="absolute flex items-center justify-center w-full h-full inset-0 p-4 backface-hidden">
             {svg ? (
-                <img src={svg.src || svg} alt={`Icon for ${name}`} />
+                <img src={svg.src || svg} alt={`Icon for ${name}`}/>
             ) : (
                 <p class="text-red-500">Image not found</p>
             )}
@@ -34,14 +34,10 @@ const { name, svg } = Astro.props
     document.addEventListener('DOMContentLoaded', () => {
         // defined in MainPage.astro
         const techStack: HTMLElement|null = document.getElementById('techstack')
+        const transitionClasses = ['transform', '-translate-y-6', 'opacity-100', 'transition-all', 'duration-1000', 'linear']
         if (techStack) {
             setTimeout(() => {
-                techStack.className = "h-2/3 text-xl lg:text-4xl \
-                grid grid-cols-1 gap-4 \
-                md:grid-rows-2 md:grid-cols-2 \
-                items-center justify-center \
-                transform translate-y-0 opacity-100 transition-all \
-                duration-1000 linear"
+                techStack.classList.add(...transitionClasses)  
             }, 1000)
         } else {
             console.error(`Tech Stack not found. Got ${techStack} instead`)

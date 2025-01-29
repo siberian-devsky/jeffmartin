@@ -3,8 +3,8 @@ import "../styles/global.css"
 ---
 
 <div id="intro" class="mx-6 flex flex-col gap-4">
-    <p id="title" class="opacity-0 font-semibold text-4xl">Hi There.</p>
-    <p id="subtitle" class="uppercase opacity-0 font-bold text-6xl">
+    <p id="title" class="opacity-0 font-semibold text-xl md:text-2xl lg:text-4xl">Hi There.</p>
+    <p id="subtitle" class="uppercase opacity-0 font-bold text-xl md:text-4xl lg:text-6xl">
         I'm Jeff And Here's<br>What I Know</p>
 </div>
 
@@ -12,10 +12,10 @@ import "../styles/global.css"
     document.addEventListener('DOMContentLoaded', () => {
         const title: HTMLElement|null = document.getElementById('title')
         const subtitle: HTMLElement|null = document.getElementById('subtitle')
-        
+        const transitionClasses: string[] = ["transform", "opacity-100", "transition-all", "duration-1500", "linear"]
         if (title) {
             setTimeout(() => {
-                title.className = "transform font-semibold text-4xl opacity-100 transition-all duration-1500 linear"
+                title.classList.add(...transitionClasses)
             }, 500)
         } else {
             console.error(`Title not found. Got ${title} instead`)
@@ -23,7 +23,7 @@ import "../styles/global.css"
 
         if (subtitle) {
             setTimeout(() => {
-                subtitle.className = "transform font-bold text-6xl opacity-100 transition-all duration-1500 linear"
+                subtitle.classList.add(...transitionClasses)
             }, 1000);
         } else {
             console.error(`Subtitle not found. Got ${subtitle} instead`)
