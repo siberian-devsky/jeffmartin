@@ -32,9 +32,9 @@ const { name, svg } = Astro.props
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // defined in MainPage.astro
+        console.log("Content Lodaed for techstack animation")
         const techStack: HTMLElement|null = document.getElementById('techstack')
-        const transitionClasses = ['transform', '-translate-y-6', 'opacity-100', 'transition-all', 'duration-1000', 'linear']
+        const transitionClasses = ['transform', '-translate-y-14', 'opacity-100', 'transition-all', 'duration-1000', 'linear']
         if (techStack) {
             setTimeout(() => {
                 techStack.classList.add(...transitionClasses)  
