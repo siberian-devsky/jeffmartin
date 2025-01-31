@@ -15,7 +15,7 @@ const { name, svg } = Astro.props
                rounded-lg"
     >
         {/* Front side */}
-        <div class="absolute flex items-center justify-center w-full h-full inset-0 p-4 backface-hidden">
+        <div class="absolute flex items-center justify-center w-full h-full inset-0 backface-hidden">
             {svg ? (
                 <img src={svg.src || svg} alt={`Icon for ${name}`}/>
             ) : (
@@ -24,23 +24,8 @@ const { name, svg } = Astro.props
         </div>
         
         {/* Back side */}
-        <div class="absolute flex items-center justify-center w-full h-full inset-0 p-4 backface-hidden [transform:rotateX(180deg)]">
+        <div class="absolute flex items-center justify-center w-full h-full inset-0 p-2 backface-hidden [transform:rotateX(180deg)]">
             <slot />
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        console.log("Content Lodaed for techstack animation")
-        const techStack: HTMLElement|null = document.getElementById('techstack')
-        const transitionClasses = ['transform', '-translate-y-14', 'opacity-100', 'transition-all', 'duration-1000', 'linear']
-        if (techStack) {
-            setTimeout(() => {
-                techStack.classList.add(...transitionClasses)  
-            }, 1000)
-        } else {
-            console.error(`Tech Stack not found. Got ${techStack} instead`)
-        }
-    })
-</script>

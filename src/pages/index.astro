@@ -1,8 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import MainPage from '../components/MainPage.astro';
+import Intro from "../components/Intro.astro"
+import Headliners from '../components/Headliners.astro';
 ---
 
 <Layout>
-	<MainPage/>
+	<div class="h-screen w-full">
+		<div id="intro">
+			<Intro/>
+		</div>
+		<div id="headliners" class="h-2/3 grid grid-cols-1 md:grid-cols-2
+			w-full text-2xl lg:text-4xl opacity-0 gap-4 items-center 
+			justify-center translate-y-full">
+			<Headliners/>
+		</div>
+	</div>
 </Layout>

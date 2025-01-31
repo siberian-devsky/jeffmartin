@@ -3,12 +3,20 @@ import Layout from "../layouts/Layout.astro";
 const {url} = Astro 
 ---
 <Layout>
-    <div class="w-full h-full flex flex-col items-center justify-center">
+    <div class="w-full h-full flex flex-col items-center justify-center gap-2">
         <div class="flex flex-col fixed top-32 p-5 items-center justify-center
                     border-red-500 border-2 rounded-2xl">
-            <h1 class="text-7xl">404 NOT FOUND</h1>
-            <h1 class="text-2xl">{url.href}</h1>
+            <h1 class="text-5xl uppercase">you sure about that?</h1>
+            <h1 class="text-2xl text-orange-600">{url.href}</h1>
             <h1 class="text-2xl">is not a valid URL</h1>
+        </div>
+        <div>
+            <a href="/">
+                <button class="border-slate-400 hover:text-black hover:bg-orange-600
+                            border-2 rounded-md px-3 py-2" value="go home"
+                    >go home
+                </button>
+            </a>
         </div>
     </div>
 </Layout>

@@ -6,7 +6,10 @@ export default {
 			transitionDuration: {
 				'1200': '1200ms',
 				'1500': '1500ms',
-				'2000': '2000ms'
+				'2000': '2000ms',
+			},
+			fontFamily: {
+				"unifontex": 'UnifontEX',
 			}
 		},
 	},
