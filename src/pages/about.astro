@@ -3,8 +3,9 @@ import Layout from "../layouts/Layout.astro"
 ---
 <Layout>
     <div class="flex flex-col h-screen items-center justify-center">
-        <div id="nutrition" class="flex flex-col w-96 h-5/6 bg-white opacity-0
-                text-black px-4 py-2 gap-x-0.5 overflow-y-scroll">
+        <div id="about-label" class="flex flex-col w-96 h-5/6 bg-slate-400 
+         text-black px-4 py-2 gap-x-0.5 overflow-y-scroll
+          transform opacity-0 transition-all duration-1000">
             <h1 class="text-4xl font-extrabold">Developer Facts</h1>
             <div class="w-full min-h-1 bg-black"></div>
             <h2 class="text-lg font-bold">Amount per serving</h2>
@@ -134,9 +135,14 @@ import Layout from "../layouts/Layout.astro"
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const label: HTMLElement|null = document.getElementById("nutrition");
-            const transitionClasses: string[] = ['transform', 'transition-all', 'opacity-100', 'duration-1000']
-            label?.classList.add(...transitionClasses)
+            const label: HTMLElement|null = document.getElementById("about-label");
+            // const transitionClasses: string[] = ['transform', 'transition-all', 'opacity-100', '']
+            if(label) {
+                setTimeout(() => {
+                    label.classList.remove('opacity-0')
+                    label.classList.add('opacity-100')
+                }, 100)
+            }
         })
     </script> 
 </Layout>

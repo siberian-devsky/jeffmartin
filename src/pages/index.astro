@@ -6,12 +6,13 @@ import Headliners from '../components/Headliners.astro';
 
 <Layout>
 	<div class="h-screen w-full">
-		<div id="intro" class="h-auto w-full mx-6 flex flex-col gap-4">
+		<!-- animations handled by divs inside here -->
+		<div id="intro" class="h-auto w-full px-14 flex flex-col gap-4">
 			<Intro/>
 		</div>
-		<div id="headliners" class="h-2/3 mt-8 grid grid-cols-1 md:grid-cols-2
-			w-full text-2xl lg:text-4xl opacity-0 gap-4 items-center 
-			justify-center -translate-x-full">
+		<div id="headliners" class="h-2/3 mt-6 grid grid-cols-1 md:grid-cols-2
+			w-full text-2xl lg:text-4xl opacity-0 items-center 
+			justify-center transform scale-90 transition-all duration-1000">
 			<Headliners/>
 		</div>
 	</div>

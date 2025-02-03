@@ -1,6 +1,10 @@
 ---
 import Menu from "../components/Menu.astro"
 import '@fontsource/unifontex';
+
+const buildMode = import.meta.env.MODE;
+const build = buildMode.toLocaleLowerCase() == "development" ? "[DEV]" : "[PROD]"
+
 ---
 <!doctype html>
 <html lang="en">
@@ -8,7 +12,7 @@ import '@fontsource/unifontex';
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>🫏</title>
+		<title>🫏 - {build}</title>
 	</head>
 	<body>
 		<div class="p-5 font-unifontex">

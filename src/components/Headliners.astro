@@ -7,27 +7,30 @@ import python from "../assets/python.svg"
 import web from "../assets/web.svg"
 ---
 <Card name="web" svg={web}>
-    <p>This site was built with <a target="_blank" class="text-purple-600" href='https://astro.build'>Astro</a></p>
+    <p>This site was built with 
+        <a target="_blank" class="text-purple-600" href='https://astro.build'>Astro</a>
+        and <a target="_blank" class="text-sky-500" href='https://v3.tailwindcss.com'>Tailwind</a>
+    </p>
 </Card>
 <Card name="github" svg={github}>
     <p>Find the code on my <a target="_blank" class="text-orange-600" href='https://www.github.com/siberian-devsky'>GitHub</a> page</p>
 </Card>
 <Card name="python" svg={python}>
-    <p>I also do <a target="_blank" class="text-yellow-400" href='https://www.python.org'>python </a>and a lot of other things</p>
+    <p>I also know <a target="_blank" class="text-yellow-400" href='https://www.python.org'>Python </a>and a lot of other things</p>
 </Card>
 <Card name="automation" svg={automation}>
-    <p>Integrations are also a thing I do</p>
+    <p>This is all comes in pretty handy</p>
 </Card>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         console.log("Content Loaded for headliners animation")
         const headliners: HTMLElement|null = document.getElementById('headliners')
-        const transitionClasses = ['transform', 'translate-x-0', 'opacity-100', 'transition-all', 'duration-1500', 'linear']
         if (headliners) {
             setTimeout(() => {
-                headliners.classList.add(...transitionClasses)  
-            }, 1000)
+                headliners.classList.remove('opacity-0', 'scale-90')
+                headliners.classList.add('opacity-100', 'scale-100')
+            }, 800)
         } else {
             console.log(`Headliners not found. Got ${headliners} instead`)
         }

@@ -2,15 +2,15 @@
 const { name, svg } = Astro.props
 ---
 
-<div class="group [perspective:1000px] m-auto w-11/12 h-[85%]">
+<div class="group [perspective:1000px] m-auto w-10/12 h-3/4">
     <div 
         class="h-full w-full transition-all duration-700 
                relative preserve-3d
                group-hover:[transform:rotateX(180deg)]
                pl-[10px] place-content-center
-               bg-[rgba(223,135,88,0.11)]
+               hover:border-l-[rgb(12,197,234)] hover:shadow-custom
                border border-[rgba(12,197,234,0.65)]
-               border-l-[10px] border-l-[rgb(12,197,234)]
+               border-l-[10px] 
                rounded-lg"
     >
         {/* Front side */}
