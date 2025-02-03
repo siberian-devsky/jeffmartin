@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro"
 ---
 <Layout>
-    <div class="flex flex-col h-full items-center justify-center">
+    <div class="flex flex-col h-screen items-center justify-center">
         <div id="nutrition" class="flex flex-col w-96 h-5/6 bg-white opacity-0
                 text-black px-4 py-2 gap-x-0.5 overflow-y-scroll">
             <h1 class="text-4xl font-extrabold">Developer Facts</h1>
@@ -135,7 +135,7 @@ import Layout from "../layouts/Layout.astro"
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const label: HTMLElement|null = document.getElementById("nutrition");
-            const transitionClasses: string[] = ['transform', 'transition-all', 'opacity-100', 'duration-1500']
+            const transitionClasses: string[] = ['transform', 'transition-all', 'opacity-100', 'duration-1000']
             label?.classList.add(...transitionClasses)
         })
     </script> 
