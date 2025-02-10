@@ -5,6 +5,7 @@ export default {
 		extend: {
 			boxShadow: {
 				"custom": "0px 0px 100px 0px rgba(12,197,234,0.10)",
+				"custom-inset": "0px 0px 60px 1px rgba(12,197,234,0.35) inset",
 			},
 			fontFamily: {
 				"unifontex": 'UnifontEX',
