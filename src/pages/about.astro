@@ -1,132 +1,134 @@
 ---
 import Layout from "../layouts/Layout.astro"
+
+export const prerender = true;
 ---
 <Layout>
     <div class="flex flex-col h-screen items-center justify-center">
-        <div id="about-label" class="flex flex-col w-96 h-5/6 bg-slate-400 
-         text-black px-4 py-2 gap-x-0.5 overflow-y-scroll
+        <div id="about-label" class="flex flex-col w-auto h-5/6
+         px-5 py-2 gap-x-0.5 gap-y-1 overflow-y-scroll border-2 border-customBlue
           transform opacity-0 transition-all duration-1000">
             <h1 class="text-4xl font-extrabold">Developer Facts</h1>
-            <div class="w-full min-h-1 bg-black"></div>
+            <div class="w-full min-h-1 bg-customBlue"></div>
             <h2 class="text-lg font-bold">Amount per serving</h2>
             <div class="flex flex-row justify-between">
                 <h2 class="text-2xl font-bold">Experience</h2>
                 <h2 class="text-3xl font-extrabold">20 Years</h2>
             </div>
-            <div class="w-full min-h-2.5 bg-black"></div>
+            <div class="w-full min-h-2.5 bg-customBlue"></div>
             <p class="font-bold text-right">% career value</p>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- python -->
             <div class="flex flex-row justify-between">
                 <h2 class="text-xl font-bold">Python <span class="font-medium">15y</span></h2>
                 <h2 class="text-2xl font-extrabold">75%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- flask -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">Flask <span class="font-medium">2y</span></h2>
                 <h2 class="text-lg font-extrabold">10%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- fast api -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">FastAPI <span class="font-medium">2y</span></h2>
                 <h2 class="text-lg font-extrabold">10%</h2>
             </div>
-            <div class="w-full min-h-1.5 bg-black"></div>
+            <div class="w-full min-h-1.5 bg-customBlue"></div>
             <!-- web -->
             <div class="flex flex-row justify-between">
                 <h2 class="text-xl font-bold">Web<sup>*</sup> <span class="font-medium">5y</span></h2>
                 <h2 class="text-2xl font-extrabold">25%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- html -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">HTML <span class="font-medium">5y</span></h2>
                 <h2 class="text-lg font-extrabold">25%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- js/ts -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">JS/TS <span class="font-medium">5y</span></h2>
                 <h2 class="text-lg font-extrabold">25%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- various frameworks -->
             <div class="flex flex-row justify-between ps-3">
                 <h2 class="text-lg font-bold italic">Frameworks/Libs <span class="font-medium">2y</span></h2>
                 <h2 class="text-lg font-extrabold">10%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">Angular <span class="font-medium">2y</span></h2>
                 <h2 class="text-lg font-extrabold">10%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">React <span class="font-medium">2y</span></h2>
                 <h2 class="text-lg font-extrabold">10%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">Astro <span class="font-medium">2y</span></h2>
                 <h2 class="text-lg font-extrabold">10%</h2>
             </div>
-            <div class="w-full min-h-1.5 bg-black"></div>
+            <div class="w-full min-h-1.5 bg-customBlue"></div>
             <!-- support skills -->
             <div class="flex flex-row justify-between">
                 <h2 class="text-xl font-bold">Suport Skills<sup>*</sup> <span class="font-medium">20y</span></h2>
                 <h2 class="text-2xl font-extrabold">100%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- jira -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">Jira <span class="font-medium">15y</span></h2>
                 <h2 class="text-lg font-extrabold">75%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- git -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">Git <span class="font-medium">15Y</span></h2>
                 <h2 class="text-lg font-extrabold">75%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- cicd -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">CI/CD <span class="font-medium">3y</span></h2>
                 <h2 class="text-lg font-extrabold">15%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- linux -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-bold italic">Linux <span class="font-medium">10y</span></h2>
                 <h2 class="text-lg font-extrabold">50%</h2>
             </div>
-            <div class="w-full min-h-1.5 bg-black"></div>
+            <div class="w-full min-h-1.5 bg-customBlue"></div>
             <!-- soft skills -->
             <div class="flex flex-row justify-between">
                 <h2 class="text-xl font-bold">Soft Skills <span class="font-medium">20y</span></h2>
                 <h2 class="text-2xl font-extrabold">100%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- intern training -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-medium italic">Intern Training <span class="font-medium">3y</span></h2>
                 <h2 class="text-lg font-extrabold">15%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- technobabble translation -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-medium italic">Technobabble ➡ English <span class="font-medium">20y</span></h2>
                 <h2 class="text-lg font-extrabold">100%</h2>
             </div>
-            <div class="w-full min-h-0.5 bg-black"></div>
+            <div class="w-full min-h-0.5 bg-customBlue"></div>
             <!-- presentation -->
             <div class="flex flex-row justify-between ps-8">
                 <h2 class="text-lg font-medium italic">Public Speaking <span class="font-medium">15y</span></h2>
                 <h2 class="text-lg font-extrabold">75%</h2>
             </div>
-            <div class="w-full min-h-2.5 bg-black"></div>
+            <div class="w-full min-h-2.5 bg-customBlue"></div>
             <div class="px-4">
                 <p class="text-center"><sup>*</sup>Values based on varous tasks throughout career. Your technical needs may vary</p>
             </div>

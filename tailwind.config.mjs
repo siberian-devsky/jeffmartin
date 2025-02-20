@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const customBlue = 'rgba(12,197,234,0.65)';
 export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
@@ -15,6 +16,9 @@ export default {
 				'1500': '1500ms',
 				'2000': '2000ms',
 			},
+			colors: {
+				'customBlue': customBlue
+			}
 		},
 	},
 	plugins: [

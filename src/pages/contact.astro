@@ -1,0 +1,43 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+export const prerender = false;
+
+if (Astro.request.method === "post") {
+    try {   
+        const data = await Astro.request.formData()
+        const name = data.get("name");
+        const email = data.get("email");
+        const message = data.get("message");
+    } catch (error) {
+        if (error instanceof Error) {
+            console.error(error.message)
+        }
+    }
+}
+---
+
+<Layout>
+    <div class="flex flex-col w-full h-screen items-center justify-center">
+        <h1 class="text-4xl">What can I do for you?</h1>
+        <br />
+        <form id="contact" class="flex flex-col w-1/3 p-4 text-2xl border 
+            border-customBlue border-l-[10px] rounded-lg"
+            method="post"
+        >
+            <!-- name -->
+            <label for="name">Name</label>
+            <input class="text-red-800" id="name" type="text" required/>
+            <br />
+            <!-- email -->
+            <label for="email">Email</label>
+            <input class="text-red-800" id="email" type="email" required/>
+            <br />
+            <!-- message -->
+            <label for="message">Message</label>
+            <textarea class="text-red-800" id="message" placeholder="Talk to me!"></textarea>
+            <br />
+            <button class="bg-customBlue rounded-lg" type="submit">Send</button>
+        </form>
+    </div>
+</Layout>

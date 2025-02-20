@@ -22,7 +22,7 @@
         </div>
         <div class="flex grow-0 border-[rgb(12,197,234)] rounded-md hover:border-x
                     justify-center w-full">
-            <a href="#" aria-label="contact">contact</a>
+            <a href="/contact" aria-label="contact">contact</a>
         </div>
     </div>
 </div>
@@ -43,7 +43,7 @@
         }
     };
 
-    // Add click event listener to the button for interaction
+    // menu toggle
     menuButton?.addEventListener("click", () => {
         const menuIsDisplayed = window.sessionStorage.getItem("menuIsDisplayed") === "true";
         if (menuContainer) {

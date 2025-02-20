@@ -12,11 +12,12 @@ const build = buildMode.toLocaleLowerCase() == "development" ? "[DEV]" : "[PROD]
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>🫏 - {build}</title>
+		<title>Jeff Martin</title>
 	</head>
 	<body>
 		<div class="p-5 font-unifontex">
 			<Menu/>
+			<!-- each slot represents a route/page -->
 			<slot />
 		</div>
 	</body>
