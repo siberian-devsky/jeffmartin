@@ -1,66 +1,141 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import nodemailer from "nodemailer"
+import { generateToken, validateToken } from "../utils/csrf";
+import { logging } from "../utils/logging";
 
-const style = "bg-transparent p-2 border-2 border-slate-700 focus:outline-none focus:ring-2 focus:ring-customBlue"
+// Constants
+const STYLE_CLASS = "bg-transparent p-2 border-2 border-slate-700 focus:outline-none focus:ring-2 focus:ring-customBlue";
+const RECIPIENT_EMAIL = "chess.logic@gmail.com";
 
-export const prerender = false;
+// init logger
+const logger = logging
 
-// init email client
-const mail_client = nodemailer.createTransport ({
-    host: 'smtp.resend.com',
-    port: 465,
-    secure: true,
-    auth: {
-        user: import.meta.env.EMAIL_USER,
-        pass: import.meta.env.EMAIL_KEY
-    }
-});
+// Only generate a new token for GET requests
+let csrfToken = Astro.cookies.get('csrfToken')?.value;
+if (!csrfToken || Astro.request.method === "GET") {
+    csrfToken = generateToken();
+    Astro.cookies.set('csrfToken', csrfToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict'
+    });
+}
+
+let formStatus = '';
+let formMessage = '';
 
 if (Astro.request.method === "POST") {
-    try {   
-        const data = await Astro.request.formData()
-        const user_name = data.get("name") as string;
-        const user_mail = data.get("email") as string;
-        const user_message = data.get("message") as string;
+    try {
+        const formData = await Astro.request.formData();
+        const submittedToken = formData.get('csrfToken')?.toString();
 
-        const info = await mail_client.sendMail({
-            from: user_mail, // sender address
-            to: "chess.logic@gmail.com", // list of receivers
-            subject: `Contact From ${user_name}`, // Subject line
-            text: user_message, // plain text body
-            html: `<p>${user_message}</p>`, // html body
-        });
+        // Validate CSRF token
+        if (!validateToken(submittedToken, csrfToken)) {
+            throw new Error('Invalid CSRF token');
+        }
+
+        const name = formData.get("name")?.toString().trim();
+        const email = formData.get("email")?.toString().trim();
+        const message = formData.get("message")?.toString().trim();
+
+        if (!name || !email || !message) {
+            throw new Error('Missing required fields');
+        }
+
+        // TODO: add email.js code here
+
+        formStatus = 'success';
+        formMessage = 'Your message has been sent successfully!';
         
     } catch (error) {
-        if (error instanceof Error) {
-            console.error(error.message)
-        }
+        logger.error('Error processing contact form:', {
+            error: error instanceof Error ? error.message : 'Unknown error',
+            timestamp: new Date().toISOString()
+        });
+
+        formStatus = 'error';
+        formMessage = 'There was an error sending your message. Please try again.';
     }
 }
 ---
 
 <Layout>
-    <div class="flex flex-col w-full h-screen items-center justify-center">
+    <div class="flex flex-col w-full h-screen items-center justify-center relative">
+        {formStatus && (
+            <div
+                id="email-alert"
+                class={`
+                    fixed bottom-4 right-4 p-4 rounded-lg shadow-lg
+                    ${formStatus === 'success' ? 'bg-green-300 text-green-800' : 'bg-red-300 text-red-800'}
+                `}
+                role="alert"
+            >
+                {formMessage}
+            </div>
+        )}
+
         <h1 class="text-4xl">What can I do for you?</h1>
         <br />
-        <form id="contact" class="flex flex-col w-1/3 p-12 text-xl border 
-            border-customBlue border-l-[10px] rounded-lg"
+        
+        <form 
+            id="contact" 
+            class="flex flex-col w-1/3 p-12 text-xl border border-customBlue border-l-[10px] rounded-lg"
             method="POST"
         >
-            <!-- name -->
-            <label for="name">name</label>
-            <input class={style} id="name" name="name" type="text" required/>
+            <input type="hidden" name="csrfToken" value={csrfToken} />
+            
+            <label for="name">Name</label>
+            <input 
+                class={STYLE_CLASS} 
+                id="name" 
+                name="name" 
+                type="text" 
+                required 
+                maxlength="100"
+                autocomplete="false"
+            />
             <br />
-            <!-- email -->
-            <label for="email">email</label>
-            <input class={style} id="email" name="email" type="email" required/>
+            
+            <label for="email">Email</label>
+            <input 
+                class={STYLE_CLASS} 
+                id="email" 
+                name="email" 
+                type="email" 
+                required
+                maxlength="254"
+                autocomplete="false"
+            />
             <br />
-            <!-- message -->
-            <label for="message">message</label>
-            <textarea class={style} id="message" name="message" placeholder="Talk to me!"></textarea>
+            
+            <label for="message">Message</label>
+            <textarea 
+                class={STYLE_CLASS} 
+                id="message" 
+                name="message" 
+                placeholder="Talk to me!"
+                required
+                maxlength="1000"
+                autocomplete="false"
+            ></textarea>
             <br />
-            <button class="bg-customBlue rounded-lg" type="submit">Send</button>
+            
+            <button 
+                class="bg-customBlue rounded-lg p-2 hover:bg-opacity-50 transition-colors" 
+                type="submit"
+            >
+                Send
+            </button>
         </form>
     </div>
 </Layout>
+
+<script>
+    // set timeout for the email status alert
+    const alert = document.getElementById("email-alert");
+    setTimeout(() => {
+        if (alert) {
+            alert.remove()
+        }
+    }, 5000)
+</script>
