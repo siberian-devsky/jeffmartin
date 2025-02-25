@@ -1,88 +1,41 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { generateToken, validateToken } from "../utils/csrf";
-import { logging } from "../utils/logging";
+import { generateToken } from "../utils/csrf";
 
 // Constants
 const STYLE_CLASS = "bg-transparent p-2 border-2 border-slate-700 focus:outline-none focus:ring-2 focus:ring-customBlue";
 const RECIPIENT_EMAIL = "chess.logic@gmail.com";
 
-// init logger
-const logger = logging
-
-// Only generate a new token for GET requests
-let csrfToken = Astro.cookies.get('csrfToken')?.value;
-if (!csrfToken || Astro.request.method === "GET") {
-    csrfToken = generateToken();
-    Astro.cookies.set('csrfToken', csrfToken, {
+// Generate CSRF token
+let storedCsrfToken = Astro.cookies.get("csrfToken")?.value;
+if (!storedCsrfToken) {
+    storedCsrfToken = generateToken();
+    Astro.cookies.set("csrfToken", storedCsrfToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'strict'
+        sameSite: 'strict',
+        path: '/'
     });
-}
-
-let formStatus = '';
-let formMessage = '';
-
-if (Astro.request.method === "POST") {
-    try {
-        const formData = await Astro.request.formData();
-        const submittedToken = formData.get('csrfToken')?.toString();
-
-        // Validate CSRF token
-        if (!validateToken(submittedToken, csrfToken)) {
-            throw new Error('Invalid CSRF token');
-        }
-
-        const name = formData.get("name")?.toString().trim();
-        const email = formData.get("email")?.toString().trim();
-        const message = formData.get("message")?.toString().trim();
-
-        if (!name || !email || !message) {
-            throw new Error('Missing required fields');
-        }
-
-        // TODO: add email.js code here
-
-        formStatus = 'success';
-        formMessage = 'Your message has been sent successfully!';
-        
-    } catch (error) {
-        logger.error('Error processing contact form:', {
-            error: error instanceof Error ? error.message : 'Unknown error',
-            timestamp: new Date().toISOString()
-        });
-
-        formStatus = 'error';
-        formMessage = 'There was an error sending your message. Please try again.';
-    }
 }
 ---
 
 <Layout>
     <div class="flex flex-col w-full h-screen items-center justify-center relative">
-        {formStatus && (
-            <div
-                id="email-alert"
-                class={`
-                    fixed bottom-4 right-4 p-4 rounded-lg shadow-lg
-                    ${formStatus === 'success' ? 'bg-green-300 text-green-800' : 'bg-red-300 text-red-800'}
-                `}
-                role="alert"
-            >
-                {formMessage}
-            </div>
-        )}
+        <div
+            id="email-alert"
+            class="fixed bottom-4 right-4 p-4 rounded-lg shadow-lg hidden"
+            role="alert"
+        >
+        </div>
 
         <h1 class="text-4xl">What can I do for you?</h1>
         <br />
         
         <form 
-            id="contact" 
+            id="contact-form" 
             class="flex flex-col w-1/3 p-12 text-xl border border-customBlue border-l-[10px] rounded-lg"
-            method="POST"
         >
-            <input type="hidden" name="csrfToken" value={csrfToken} />
+            <input type="hidden" name="csrfToken" value={storedCsrfToken} />
             
             <label for="name">Name</label>
             <input 
@@ -92,7 +45,7 @@ if (Astro.request.method === "POST") {
                 type="text" 
                 required 
                 maxlength="100"
-                autocomplete="false"
+                autocomplete="off"
             />
             <br />
             
@@ -104,7 +57,7 @@ if (Astro.request.method === "POST") {
                 type="email" 
                 required
                 maxlength="254"
-                autocomplete="false"
+                autocomplete="off"
             />
             <br />
             
@@ -116,7 +69,7 @@ if (Astro.request.method === "POST") {
                 placeholder="Talk to me!"
                 required
                 maxlength="1000"
-                autocomplete="false"
+                autocomplete="off"
             ></textarea>
             <br />
             
@@ -131,11 +84,62 @@ if (Astro.request.method === "POST") {
 </Layout>
 
 <script>
-    // set timeout for the email status alert
-    const alert = document.getElementById("email-alert");
-    setTimeout(() => {
-        if (alert) {
-            alert.remove()
+    import { init, send } from '@emailjs/browser';
+  
+    // Initialize EmailJS
+    init(import.meta.env.PUBLIC_EMAILJS_KEY);
+
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const alertElement = document.getElementById('email-alert');
+      
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(e.target as HTMLFormElement);
+        const csrfToken = formData.get('csrfToken')?.toString();
+
+        try {
+            const response = await fetch('/api/validateCsrf', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ csrfToken }),
+            });
+
+            if (!response.ok) {
+                throw new Error('CSRF validation failed');
+            }
+
+            await send(
+                import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
+                import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
+                {
+                    fromName: formData.get('name'),
+                    fromEmail: formData.get('email'),
+                    message: formData.get('message'),
+                }
+            );
+            
+            showAlert('success', 'Your message has been sent successfully!');
+            form.reset();
+        
+        } catch (error) {
+            showAlert('error', 'There was an error sending your message. Please try again.');
         }
-    }, 5000)
+    });
+
+    function showAlert(status: 'success' | 'error', message: string) {
+        if (alertElement) {
+            alertElement.className = `fixed bottom-4 right-4 p-4 rounded-lg shadow-lg ${
+                status === 'success' ? 'bg-green-300 text-green-800' : 'bg-red-300 text-red-800'
+            }`;
+            alertElement.textContent = message;
+            alertElement.classList.remove('hidden');
+
+            setTimeout(() => {
+                alertElement.classList.add('hidden');
+            }, 5000);
+        }
+    }
 </script>
