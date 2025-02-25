@@ -84,11 +84,6 @@ if (!storedCsrfToken) {
 </Layout>
 
 <script>
-    import { init, send } from '@emailjs/browser';
-  
-    // Initialize EmailJS
-    init(import.meta.env.PUBLIC_EMAILJS_KEY);
-
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const alertElement = document.getElementById('email-alert');
       
@@ -100,7 +95,7 @@ if (!storedCsrfToken) {
 
         try {
             const response = await fetch('/api/validateCsrf', {
-                method: 'post',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -111,20 +106,26 @@ if (!storedCsrfToken) {
                 throw new Error('CSRF validation failed');
             }
 
-            await send(
-                import.meta.env.PUBLIC_EMAILJS_SERVICE_ID,
-                import.meta.env.PUBLIC_EMAILJS_TEMPLATE_ID,
-                {
-                    fromName: formData.get('name'),
-                    fromEmail: formData.get('email'),
-                    message: formData.get('message'),
-                }
-            );
+            // send mail
+            const emailResponse = await fetch('/api/sendEmail', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    message: formData.get("message")
+                })
+            })
             
+            if (!emailResponse.ok) {
+                throw new Error("Failed to send email")
+            }
+
             showAlert('success', 'Your message has been sent successfully!');
             form.reset();
         
         } catch (error) {
+            console.error('Error:', error)
             showAlert('error', 'There was an error sending your message. Please try again.');
         }
     });
