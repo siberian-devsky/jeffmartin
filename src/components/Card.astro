@@ -1,5 +1,5 @@
 ---
-const { name, svg } = Astro.props
+const { name, svg, svgDarkMode = true } = Astro.props;
 ---
 
 <div class="group [perspective:1000px] m-auto w-10/12 h-3/4">
@@ -8,15 +8,21 @@ const { name, svg } = Astro.props
                relative preserve-3d
                group-hover:[transform:rotateX(180deg)]
                pl-[10px] place-content-center
-               hover:border-l-[rgb(12,197,234)]
-               border border-customBlue
+               dark:hover:border-l-[rgb(12,197,234)]
+               border border-blue-700 dark:border-customBlue
                border-l-[10px] 
                rounded-lg"
     >
         {/* Front side */}
         <div class="absolute flex items-center justify-center w-full h-full inset-0 backface-hidden">
             {svg ? (
-                <img src={svg.src || svg} alt={`Icon for ${name}`}/>
+                svgDarkMode ? (
+                    <div class="text-gray-800 dark:text-[rgba(255,255,255,0.608)]">
+                        <Fragment set:html={svg} />
+                    </div>
+                ) : (
+                    <img src={svg.src || svg} alt={`Icon for ${name}`}/>
+                )
             ) : (
                 <p class="text-red-500">Image not found</p>
             )}
