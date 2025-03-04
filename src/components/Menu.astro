@@ -1,4 +1,5 @@
 ---
+import ThemeToggle from "./ThemeToggle.astro"
 ---
 
 <button id="menu-button" class="opacity-0 z-50 border
@@ -23,6 +24,10 @@
         <div class="flex grow-0 border-[rgb(12,197,234)] rounded-md hover:border-x
                     justify-center w-full">
             <a href="/contact" aria-label="contact">contact</a>
+        </div>
+        <div class="flex grow-0 border-[rgb(12,197,234)] rounded-md hover:border-x
+                    justify-center w-full">
+            <ThemeToggle />
         </div>
     </div>
 </div>
