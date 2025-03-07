@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 const {url} = Astro
-console.log(url.href)
 
 export const prerender = true;
 ---
@@ -10,7 +9,7 @@ export const prerender = true;
         <div class="flex flex-col fixed top-32 p-5 items-center justify-center
                     border-red-500 border-2 rounded-2xl">
             <h1 class="text-5xl uppercase">you sure about that?</h1>
-            <h1 class="text-2xl text-orange-600">{url.origin}{url.pathname}</h1>
+            <h1 class="text-2xl text-orange-600">{url.href}</h1>
             <h1 class="text-2xl">is not a valid URL</h1>
         </div>
         <div>
