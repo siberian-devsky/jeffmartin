@@ -16,13 +16,14 @@ const { name, svg, svgDarkMode = true } = Astro.props;
         {/* Front side */}
         <div class="absolute flex items-center justify-center w-full h-full inset-0 backface-hidden">
             {svg ? (
-                svgDarkMode ? (
-                    <div class="text-gray-800 dark:text-[rgba(255,255,255,0.608)]">
-                        <Fragment set:html={svg} />
-                    </div>
-                ) : (
-                    <img src={svg.src || svg} alt={`Icon for ${name}`}/>
-                )
+                <div class="text-gray-800 dark:text-[rgba(255,255,255,0.608)]">
+                    <img 
+                        src={svg.src || svg} 
+                        alt={`Icon for ${name}`}
+                        class="w-auto h-auto" 
+                        style="filter: var(--svg-filter);"
+                    />
+                </div>
             ) : (
                 <p class="text-red-500">Image not found</p>
             )}
@@ -36,3 +37,14 @@ const { name, svg, svgDarkMode = true } = Astro.props;
         </div>
     </div>
 </div>
+
+<style>
+    /* CSS variables for controlling SVG colors */
+    :global(:root) {
+        --svg-filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0.4) contrast(1);
+    }
+    
+    :global(.dark) {
+        --svg-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0.7) contrast(1);
+    }
+</style>
