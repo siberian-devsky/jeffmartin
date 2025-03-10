@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { generateToken } from "../utils/csrf";
 
 // Constants
-const STYLE_CLASS = "bg-transparent p-2 border-2 border-slate-700 focus:outline-none focus:ring-2 focus:ring-customBlue";
+const STYLE_CLASS = "w-full bg-transparent p-2 border border-blue-700 dark:border-customBlue rounded-md focus:outline-none focus:ring-2 focus:ring-customBlue";
 const RECIPIENT_EMAIL = "chess.logic@gmail.com";
 
 // Generate CSRF token
@@ -20,63 +20,65 @@ if (!storedCsrfToken) {
 ---
 
 <Layout>
-    <div class="flex flex-col w-full h-screen items-center justify-center relative">
+    <div class="flex flex-col w-full min-h-screen px-4 py-8 items-center justify-center relative">
         <div
             id="email-alert"
-            class="fixed bottom-4 right-4 p-4 rounded-lg shadow-lg hidden"
+            class="fixed bottom-4 right-4 p-4 rounded-lg shadow-lg hidden z-50"
             role="alert"
         >
         </div>
 
-        <h1 class="text-4xl">What can I do for you?</h1>
-        <br />
+        <h1 class="text-2xl md:text-4xl mb-6 font-unifontex">What can I do for you?</h1>
         
         <form 
             id="contact-form" 
-            class="flex flex-col w-1/3 p-12 text-xl border border-blue-700 dark:border-customBlue border-l-[10px] rounded-lg"
+            class="flex flex-col w-full max-w-lg mx-auto p-4 md:p-8 space-y-4 text-base md:text-xl border border-blue-700 dark:border-customBlue border-l-[10px] rounded-lg font-unifontex"
         >
             <input type="hidden" name="csrfToken" value={storedCsrfToken} />
             
-            <label for="name">Name</label>
-            <input 
-                class={STYLE_CLASS} 
-                id="name" 
-                name="name" 
-                type="text" 
-                required 
-                maxlength="100"
-                autocomplete="off"
-            />
-            <br />
+            <div class="space-y-2">
+                <label for="name" class="block">Name</label>
+                <input 
+                    class={STYLE_CLASS} 
+                    id="name" 
+                    name="name" 
+                    type="text" 
+                    required 
+                    maxlength="100"
+                    autocomplete="off"
+                />
+            </div>
             
-            <label for="email">Email</label>
-            <input 
-                class={STYLE_CLASS} 
-                id="email" 
-                name="email" 
-                type="email" 
-                required
-                maxlength="254"
-                autocomplete="off"
-            />
-            <br />
+            <div class="space-y-2">
+                <label for="email" class="block">Email</label>
+                <input 
+                    class={STYLE_CLASS} 
+                    id="email" 
+                    name="email" 
+                    type="email" 
+                    required
+                    maxlength="254"
+                    autocomplete="off"
+                />
+            </div>
             
-            <label for="message">Message</label>
-            <textarea 
-                class={STYLE_CLASS} 
-                id="message" 
-                name="message" 
-                placeholder="Talk to me!"
-                required
-                maxlength="1000"
-                autocomplete="off"
-            ></textarea>
-            <br />
+            <div class="space-y-2">
+                <label for="message" class="block">Message</label>
+                <textarea 
+                    class={`${STYLE_CLASS} min-h-[100px] md:min-h-[150px]`}
+                    id="message" 
+                    name="message" 
+                    placeholder="Talk to me!"
+                    required
+                    maxlength="1000"
+                    autocomplete="off"
+                ></textarea>
+            </div>
             
             <button 
                 class="bg-blue-700 dark:bg-customBlue
                 text-white dark:text-black
-                rounded-lg p-2 transition-colors" 
+                rounded-lg p-2 transition-colors mt-4" 
                 type="submit"
             >
                 Send

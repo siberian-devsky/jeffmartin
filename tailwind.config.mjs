@@ -6,7 +6,8 @@ export default {
 		extend: {
 			boxShadow: {
 				"custom": "0px 0px 100px 0px rgba(12,197,234,0.10)",
-				"custom-inset": "0px 0px 60px 1px rgba(12,197,234,0.35) inset",
+				"custom-inset-dark-mode": "0px 0px 60px 1px rgba(12,197,234,0.35) inset",
+				"custom-inset-light-mode": "0px 0px 60px 1px rgba(29,78,216,0.65) inset", // blue-700
 			},
 			fontFamily: {
 				"unifontex": 'UnifontEX',

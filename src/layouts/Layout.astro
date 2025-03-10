@@ -1,5 +1,5 @@
 ---
-import Menu from "../components/Menu.astro"
+import Header from '../components/Header.astro';
 import '@fontsource/unifontex';
 import "../styles/global.css";
 
@@ -15,9 +15,10 @@ const build = buildMode.toLocaleLowerCase() == "development" ? "[DEV]" : "[PROD]
 		<meta name="generator" content={Astro.generator} />
 		<title>Jeff Martin</title>
 	</head>
-	<body class="bg-white text-gray-800 dark:bg-[rgb(27,27,27)] dark:text-[rgba(255,255,255,0.608)] transition-colors duration-300">
+	<body class="flex flex-col bg-white text-zinc-800 dark:bg-zinc-800 dark:text-white 
+	transition-colors duration-300">
+		<Header />
 		<div class="p-5 font-unifontex">
-			<Menu/>
 			<slot />
 		</div>
 	</body>
@@ -42,7 +43,7 @@ const build = buildMode.toLocaleLowerCase() == "development" ? "[DEV]" : "[PROD]
   // Store the theme preference when it changes
   window.localStorage.setItem("theme", theme);
 
-  // Make theme switching function available globally
+  // Make theme switching function available globally - see src/types.d.ts
   window.toggleTheme = () => {
 	// Add transitioning class
 	document.documentElement.classList.add('transitioning');

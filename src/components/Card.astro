@@ -1,50 +1,35 @@
 ---
+import ResponsiveSvg from "./ResponsiveSvg.astro";
+
 const { name, svg, svgDarkMode = true } = Astro.props;
 ---
 
-<div class="group [perspective:1000px] m-auto w-10/12 h-3/4">
-    <div 
-        class="h-full w-full transition-all duration-700 
-               relative preserve-3d
+<div class="group [perspective:1000px] mx-auto w-full">
+    <div
+        class="relative aspect-video transition-all duration-700 preserve-3d
                group-hover:[transform:rotateX(180deg)]
                pl-[10px] place-content-center
                dark:hover:border-l-[rgb(12,197,234)]
-               border border-blue-700 dark:border-customBlue
-               border-l-[10px] 
+               border-2 border-blue-700 dark:border-customBlue
+               border-l-[20px] 
                rounded-lg"
     >
         {/* Front side */}
         <div class="absolute flex items-center justify-center w-full h-full inset-0 backface-hidden">
             {svg ? (
-                <div class="text-gray-800 dark:text-[rgba(255,255,255,0.608)]">
-                    <img 
-                        src={svg.src || svg} 
-                        alt={`Icon for ${name}`}
-                        class="w-auto h-auto" 
-                        style="filter: var(--svg-filter);"
-                    />
-                </div>
+              <div class="text-gray-800 dark:text-[rgba(255,255,255,0.608)]">
+                <ResponsiveSvg src={svg.src || svg} alt={`Icon for ${name}`} />
+              </div>
             ) : (
-                <p class="text-red-500">Image not found</p>
+              <p class="text-red-500">Image not found</p>
             )}
         </div>
         
         {/* Back side */}
         <div class="absolute flex items-center text-center
-        w-full h-full inset-0 p-2 backface-hidden [transform:rotateX(180deg)]
-        shadow-custom-inset">
+        w-full h-full inset-0 p-4 backface-hidden [transform:rotateX(180deg)]
+        shadow-custom-inset-light-mode dark:shadow-custom-inset-dark-mode">
             <slot />
         </div>
     </div>
 </div>
-
-<style>
-    /* CSS variables for controlling SVG colors */
-    :global(:root) {
-        --svg-filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0.4) contrast(1);
-    }
-    
-    :global(.dark) {
-        --svg-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0.7) contrast(1);
-    }
-</style>

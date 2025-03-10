@@ -1,99 +1,107 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro"
+import ThemeToggle from "./ThemeToggle.astro";
+
+const menuItems = [
+  { href: '/', text: 'home' },
+  { href: '/about', text: 'about' },
+  { href: '/contact', text: 'contact' }
+];
 ---
 
-<button id="menu-button" class="opacity-0 z-50 border-2
-                        border-blue-700
-                        dark:border-customBlue rounded-md fixed w-20 h-8
-                        text-lg right-16 top-7"
-    ><div class="flex flex-col justify-center items-center gap-1">
-        <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
-        <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
-        <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
+<div class="relative">
+  <!-- Menu Button -->
+  <button
+    id="menuBtn"
+    class="absolute top-3 right-4 p-2 rounded-md border border-blue-700 text-blue-700
+            dark:border-customBlue dark:text-customBlue
+            hover:bg-customBlue/20 transition-colors duration-200"
+    aria-label="Toggle Menu"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-10 w-10"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    </svg>
+  </button>
+
+  <!-- Slide-out Menu -->
+  <nav
+    id="menu"
+    class="fixed top-0 right-0 h-full w-64 bg-zinc-900/80
+            transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm"
+  >
+    <div class="p-6 flex flex-col gap-6">
+      <div class="flex justify-between items-center">
+        <!-- Theme Toggle -->
+        <ThemeToggle />
+
+        <!-- Close Button -->
+        <button
+          id="closeMenu"
+          class="p-2 text-customBlue hover:bg-customBlue/10 rounded-md transition-colors duration-200"
+          aria-label="Close Menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        {menuItems.map(item => (
+          <a
+            href={item.href}
+            class="text-customBlue hover:text-white transition-colors duration-200 text-2xl font-unifontex"
+          >
+            {item.text}
+          </a>
+        ))}
+      </div>
     </div>
-</button>
-<div id="menu-container" class="opacity-0 invisible z-50 h-auto fixed
-                                w-20 rounded-md right-16 top-16">
-    <div id="menu-content" class="flex flex-col w-full h-full items-center text-lg">
-        <div class="flex border-blue-700 dark:border-customBlue rounded-md hover:border-x justify-center w-full">
-            <a href="/" aria-label="home">home</a>
-        </div>
-        <div class="flex grow-0 border-blue-700 dark:border-customBlue rounded-md hover:border-x
-                    justify-center w-full">
-            <a href="/about" aria-label="about">about</a>
-        </div>
-        <div class="flex grow-0 border-blue-700 dark:border-customBlue rounded-md hover:border-x
-                    justify-center w-full">
-            <a href="/contact" aria-label="contact">contact</a>
-        </div>
-        <div class="flex grow-0 border-blue-700 dark:border-customBlue rounded-md hover:border-x
-                    justify-center w-full">
-            <ThemeToggle />
-        </div>
-    </div>
+  </nav>
 </div>
 
 <script>
-    const menuButton: HTMLElement | null = document.getElementById("menu-button");
-    const menuContainer: HTMLElement | null = document.getElementById("menu-container");
+  const menuBtn = document.getElementById('menuBtn');
+  const closeMenu = document.getElementById('closeMenu');
+  const menu = document.getElementById('menu');
 
-    // Initialize menu state from sessionStorage
-    const initializeMenuState = () => {
-        const menuIsDisplayed = window.sessionStorage.getItem("menuIsDisplayed") === "true";
-        if (menuContainer) {
-            if (menuIsDisplayed) {
-                menuContainer.classList.remove("invisible");
-            } else {
-                menuContainer.classList.add("invisible");
-            }
-        }
-    };
+  function toggleMenu() {
+    menu?.classList.toggle('translate-x-full');
+    document.body.classList.toggle('overflow-hidden');
+  }
 
-    // menu toggle
-    menuButton?.addEventListener("click", () => {
-        const menuIsDisplayed = window.sessionStorage.getItem("menuIsDisplayed") === "true";
-        if (menuContainer) {
-            if (menuIsDisplayed) {
-                menuButton.innerHTML = `
-                <div class="flex flex-col justify-center items-center gap-1">
-                    <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
-                    <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
-                    <div class="w-8 h-0.5 rounded-md bg-slate-400"></div>
-                </div>
-                `
-                menuContainer.classList.add("invisible");
-                window.sessionStorage.setItem("menuIsDisplayed", "false");
-            } else {
-                menuButton.textContent = "X"
-                menuContainer.classList.remove("invisible");
-                window.sessionStorage.setItem("menuIsDisplayed", "true");
-            }
-        } else {
-            alert("Menu could not be loaded");
-        }
-    });
+  menuBtn?.addEventListener('click', toggleMenu);
+  closeMenu?.addEventListener('click', toggleMenu);
 
-    // display the menu on load
-    document.addEventListener('DOMContentLoaded', () => {
-        // Run initialization on page load
-        initializeMenuState();
-        
-        const transitionClasses = ['transform', 'opacity-100', 'transition-all',
-                                   'duration-1000', 'linear']
-        if (menuButton) {
-            setTimeout(() => {
-                menuButton.classList.add(...transitionClasses)
-            }, 10)
-        } else {
-            console.error(`Menu button not found. Got ${menuButton} instead`)
-        }
-
-        if (menuContainer) {
-            setTimeout(() => {
-                menuContainer.classList.add(...transitionClasses)
-            }, 10);
-        } else {
-            console.error(`Menu container not found. Got ${menuContainer} instead`)
-        }
-    })
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!menu?.contains(target)
+        && !menuBtn?.contains(target)
+        && !menu?.classList.contains('translate-x-full')
+    ) {
+      toggleMenu();
+    }
+  });
 </script>
