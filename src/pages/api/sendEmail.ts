@@ -20,15 +20,15 @@ export const POST: APIRoute = async ({ request }) => {
         }
     );
 
-    return new Response(JSON.stringify({ success: true}), {
+    return new Response(JSON.stringify({ success: true }), {
         status: 200,
-        headers: { 'Content-Type': 'application/json'}
+        headers: {'Content-Type': 'application/json'}
     })
   } catch(error) {
-    console.error('Server Error: failed to send email', error)
-    return new Response(JSON.stringify({ success: false}), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json'}
+      console.error('Server Error: failed to send email', error)
+      return new Response(JSON.stringify({ success: false }), {
+          status: 500,
+          headers: {'Content-Type': 'application/json'}
     })
   }
 };

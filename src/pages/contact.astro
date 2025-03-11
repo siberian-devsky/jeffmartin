@@ -75,10 +75,12 @@ if (!storedCsrfToken) {
                 ></textarea>
             </div>
             
-            <button 
-                class="bg-blue-700 dark:bg-customBlue
-                text-white dark:text-black
-                rounded-lg p-2 transition-colors mt-4" 
+            <button
+                id="submit"
+                class="bg-blue-700 hover:bg-black 
+                dark:bg-customBlue dark:hover:bg-white
+                text-white dark:text-black w-1/4
+                rounded-lg p-2 transition-colors mt-4 scale" 
                 type="submit"
             >
                 Send
@@ -147,4 +149,15 @@ if (!storedCsrfToken) {
             }, 5000);
         }
     }
+
+    const button = document.getElementById("submit")
+    
+    button?.addEventListener("mouseup", (e) => {
+        button.classList.toggle("scale-95")
+    })
+
+    button?.addEventListener("mousedown", (e) => {
+        button.classList.toggle("scale-95")
+    })
+    
 </script>
