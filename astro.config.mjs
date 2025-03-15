@@ -9,6 +9,9 @@ export default defineConfig(
     integrations: [tailwind()],
     adapter: vercel(),
     site: 'https://jeffmartin.vercel.app/',
-    output: 'server'
+    output: 'server',
+    security: {
+      checkOrigin: true
+    }
   }
 );

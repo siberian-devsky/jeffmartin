@@ -1,6 +1,4 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro";
-
 const menuItems = [
   { href: '/', text: 'home' },
   { href: '/about', text: 'about' },
@@ -8,81 +6,77 @@ const menuItems = [
 ];
 ---
 
-<div class="relative">
-  <!-- Menu Button -->
-  <button
-    id="menuBtn"
-    class="absolute top-3 right-8 p-2 rounded-md border border-blue-500 text-blue-500
-            dark:border-customBlue dark:text-customBlue
-            hover:bg-customBlue/20 transition-colors duration-200"
-    aria-label="Toggle Menu"
+
+<!-- Menu Button -->
+<button
+  id="menuBtn"
+  class="rounded-md border border-blue-500 text-blue-500
+          dark:border-customBlue dark:text-customBlue
+          hover:bg-customBlue/20 transition-colors duration-200"
+  aria-label="Toggle Menu"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-10 w-10"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
   >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-10 w-10"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M4 6h16M4 12h16M4 18h16"
+    />
+  </svg>
+</button>
+
+<!-- Slide-out Menu -->
+<nav
+  id="menu"
+  class="fixed top-0 right-0 h-full w-48 bg-zinc-900/80 dark:bg-zinc-900/40 
+      transform -translate-y-full transition-transform duration-300 ease-in-out backdrop-blur-sm"
+  >
+  <div class="p-6 flex flex-col gap-6">
+      <div class="flex justify-between items-center">
+        <!-- Close Button -->
+        <button
+        id="closeMenu"
+        class="p-2 text-blue-500 dark:text-customBlue hover:bg-customBlue/10 rounded-md transition-colors duration-200"
+        aria-label="Close Menu"
+        >
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        >
+        <path
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="2"
-        d="M4 6h16M4 12h16M4 18h16"
-      />
-    </svg>
-  </button>
-
-  <!-- Slide-out Menu -->
-  <nav
-    id="menu"
-    class="fixed top-0 right-0 h-full w-64 bg-zinc-900/80 dark:bg-zinc-900/40
-    transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm"
-    >
-    <div class="p-6 flex flex-col gap-6">
-        <div class="flex justify-between items-center">
-          <!-- Theme Toggle -->
-          <ThemeToggle />
-
-          <!-- Close Button -->
-          <button
-          id="closeMenu"
-          class="p-2 text-blue-500 dark:text-customBlue hover:bg-customBlue/10 rounded-md transition-colors duration-200"
-          aria-label="Close Menu"
-          >
-          <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          >
-          <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
+        d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
 
 
-        </button>
-      </div>
-
-      <div class="flex flex-col gap-4">
-        {menuItems.map(item => (
-            <a
-                href={item.href}
-                class="text-blue-500 dark:text-customBlue hover:text-white dark:hover:text-white 
-                    transition-colors duration-200 text-2xl font-unifontex text-right"
-            > 
-                {item.text}
-          </a>
-        ))}
-      </div>
+      </button>
     </div>
-  </nav>
-</div>
+
+    <div class="flex flex-col gap-4">
+      {menuItems.map(item => (
+          <a
+              href={item.href}
+              class="text-blue-500 dark:text-customBlue hover:text-white dark:hover:text-white 
+                  transition-colors duration-200 text-2xl font-unifontex text-right"
+          > 
+              {item.text}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
 
 <script>
   const menuBtn = document.getElementById('menuBtn');
@@ -90,7 +84,7 @@ const menuItems = [
   const menu = document.getElementById('menu');
 
   function toggleMenu() {
-    menu?.classList.toggle('translate-x-full');
+    menu?.classList.toggle('-translate-y-full');
     document.body.classList.toggle('overflow-hidden');
   }
 
@@ -102,7 +96,7 @@ const menuItems = [
     const target = e.target as HTMLElement;
     if (!menu?.contains(target)
         && !menuBtn?.contains(target)
-        && !menu?.classList.contains('translate-x-full')
+        && !menu?.classList.contains('-translate-y-full')
     ) {
         console.log(target)
         console.log(menu)
