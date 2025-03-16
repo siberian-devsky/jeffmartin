@@ -18,7 +18,7 @@ export default {
 				'2000': '2000ms',
 			},
 			colors: {
-				'customBlue': 'rgba(12,197,234,0.65)'
+				'customBlue': 'rgba(12,197,234,0.65)',
 			}
 		},
 	},
