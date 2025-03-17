@@ -21,7 +21,7 @@ if (!storedCsrfToken) {
 
 <script>
     const form = document.getElementById('contact-form') as HTMLFormElement;
-    const alertElement = document.getElementById('email-alert');
+    const emailAlert = document.getElementById('email-alert');
       
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -32,9 +32,7 @@ if (!storedCsrfToken) {
         try {
             const response = await fetch('/api/validateCsrf', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ csrfToken }),
             });
 
@@ -45,7 +43,7 @@ if (!storedCsrfToken) {
             // send mail
             const emailResponse = await fetch('/api/sendEmail', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: formData.get('name'),
                     email: formData.get('email'),
@@ -61,26 +59,33 @@ if (!storedCsrfToken) {
             form.reset();
         
         } catch (error) {
-            console.error('Error:', error)
             showAlert('error', 'There was an error sending your message. Please try again.');
         }
     });
 
     function showAlert(status: 'success' | 'error', message: string) {
-        if (alertElement) {
-            alertElement.className = `fixed bottom-4 right-4 p-4 rounded-lg shadow-lg ${
-                status === 'success' ? 'bg-green-300 text-green-800' : 'bg-red-300 text-red-800'
-            }`;
-            alertElement.textContent = message;
-            alertElement.classList.remove('hidden');
+        if (emailAlert) {
+            emailAlert.textContent = message;
+            console.log('showAlert() called');
 
+            // show
+            status === 'success' ?
+                emailAlert.classList.add('bg-green-800','text-green-300', 
+                                        'dark:bg-green-300', 'dark:text-green-800') :
+                emailAlert.classList.add('bg-red-800','text-red-300',
+                                        'dark:bg-red-300', 'dark:text-red-800');
+
+            emailAlert.classList.replace('-translate-y-full', 'translate-y-10');
+
+            // hide
             setTimeout(() => {
-                alertElement.classList.add('hidden');
-            }, 5000);
+                emailAlert.classList.replace('translate-y-10', '-translate-y-full');
+            }, 3000);
         }
+    
     }
 
-    const button = document.getElementById("submit")
+   const button = document.getElementById("submit")
     
     button?.addEventListener("mouseup", (e) => {
         button.classList.toggle("scale-95")
