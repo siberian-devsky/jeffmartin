@@ -95,19 +95,17 @@ const STYLE_CLASS = "w-full bg-transparent p-2 border border-blue-700 dark:borde
 
     // Use setTimeout for both animations to ensure they run after the page loads
     setTimeout(() => {
-        // Add transition properties to line animation first
         if (lineAnimation) {
-            lineAnimation.classList.add('transform', 'transition-transform', 'ease-in-out', 'duration-700', 'scale-x-100');
-        }
+            lineAnimation.classList.add('transform', 'transition-transform', 'ease-in-out', 'duration-300', 'scale-x-100')
+        };
+    }, 200);
         
-        // Then animate the header after a slight delay
-        setTimeout(() => {
-            if (headerAnimation) {
-                headerAnimation.classList.replace('translate-y-full', 'translate-y-0');
-                headerAnimation.classList.add('transform', 'opacity-100', 'transition', 'ease-in-out', 'duration-300');
-            }
-        }, 100);
-}, 300);
+    setTimeout(() => {
+        if (headerAnimation) {
+            headerAnimation.classList.replace('translate-y-full', 'translate-y-0');
+            headerAnimation.classList.add('transform', 'opacity-100', 'transition', 'ease-in-out', 'duration-300');
+        }
+    }, 300);
 </script>
 
 <style>
