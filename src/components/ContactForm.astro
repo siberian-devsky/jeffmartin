@@ -93,19 +93,20 @@ const STYLE_CLASS = "w-full bg-transparent p-2 border border-blue-700 dark:borde
     const headerAnimation = document.getElementById("header-animation");
     const lineAnimation = document.getElementById("line-animation");
 
-    // Use setTimeout for both animations to ensure they run after the page loads
+    // line animation 
     setTimeout(() => {
         if (lineAnimation) {
             lineAnimation.classList.add('transform', 'transition-transform', 'ease-in-out', 'duration-300', 'scale-x-100')
         };
     }, 200);
         
+    // text rises up
     setTimeout(() => {
         if (headerAnimation) {
             headerAnimation.classList.replace('translate-y-full', 'translate-y-0');
-            headerAnimation.classList.add('transform', 'opacity-100', 'transition', 'ease-in-out', 'duration-300');
+            headerAnimation.classList.add('transform', 'opacity-100', 'transition', 'ease-in-out', 'duration-600');
         }
-    }, 300);
+    }, 600);
 </script>
 
 <style>
