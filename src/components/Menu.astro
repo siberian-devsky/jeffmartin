@@ -10,60 +10,24 @@ const menuItems = [
 <!-- menu button -->
 <button
   id="menuBtn"
-  class="rounded-md border border-blue-500 text-blue-500
-          dark:border-customBlue dark:text-customBlue
+  class="text-blue-500 dark:text-customBlue
           hover:bg-customBlue/20 transition-colors duration-200"
   aria-label="Toggle Menu"
 >
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-10 w-10"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M4 6h16M4 12h16M4 18h16"
-    />
-  </svg>
+  <div class="flex flex-col gap-1">
+    <span class="block w-6 h-0.5 bg-current"></span>
+    <span class="block w-6 h-0.5 bg-current"></span>
+    <span class="block w-6 h-0.5 bg-current"></span>
+  </div>
 </button>
 
 <!-- slide down menu -->
 <nav
   id="menu"
-  class="fixed top-0 right-0 h-full w-48 bg-zinc-900/80 dark:bg-zinc-900/40 
-      transform -translate-y-full transition-transform duration-300 ease-in-out backdrop-blur-sm"
+  class="fixed top-20 right-0 h-auto w-48 bg-zinc-900/80 dark:bg-zinc-900/40 
+      transform translate-x-full transition-transform duration-300 ease-in-out backdrop-blur-sm"
   >
   <div class="p-6 flex flex-col gap-6">
-      <div class="flex justify-between items-center">
-        <!-- close button -->
-        <button
-        id="closeMenu"
-        class="p-2 text-blue-500 dark:text-customBlue hover:bg-customBlue/10 rounded-md transition-colors duration-200"
-        aria-label="Close Menu"
-        >
-        <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        >
-        <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
-
-
-      </button>
-    </div>
-
     <div class="flex flex-col gap-4">
       {menuItems.map(item => (
           <a
@@ -80,23 +44,21 @@ const menuItems = [
 
 <script>
   const menuBtn = document.getElementById('menuBtn');
-  const closeMenu = document.getElementById('closeMenu');
   const menu = document.getElementById('menu');
 
   function toggleMenu() {
-    menu?.classList.toggle('-translate-y-full');
+    menu?.classList.toggle('translate-x-full');
     document.body.classList.toggle('overflow-hidden');
   }
 
   menuBtn?.addEventListener('click', toggleMenu);
-  closeMenu?.addEventListener('click', toggleMenu);
 
   // Close menu when clicking outside
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement;
     if (!menu?.contains(target)
         && !menuBtn?.contains(target)
-        && !menu?.classList.contains('-translate-y-full')
+        && !menu?.classList.contains('translate-x-full')
       ) {
         toggleMenu();
     }
